@@ -1,17 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
-
-type LayerName = "Production" | "Curation" | "Storage" | "Activation" | "Governance";
-type Resource = {
-  name: string;
-  type: string;
-  primary: LayerName;
-  scope: string;
-  verdict: string;
-  score: number;
-  url: string;
-};
+import { resources, type LayerName } from "../lib/resources";
 type Aspect = {
   name: string;
   role: string;
@@ -33,21 +23,6 @@ type FailureMode = {
   example: string;
   layer: LayerName;
 };
-
-const resources: Resource[] = [
-  { name: "Letta / MemGPT", type: "Tool", primary: "Activation", scope: "agent", verdict: "Strong agent-state framing. Review should test retrieval observability, metadata, lifecycle and governance boundaries.", score: 76, url: "https://www.letta.com/" },
-  { name: "Mem0", type: "Tool", primary: "Storage", scope: "personal/team", verdict: "Practical memory layer. Needs careful review around stale facts, junk accumulation, overwrite semantics and retrieval quality.", score: 70, url: "https://mem0.ai/" },
-  { name: "Zep / Graphiti", type: "Tool", primary: "Curation", scope: "app", verdict: "Temporal graph direction is relevant. Evaluate contradiction, forgetting, dedupe and graph lifecycle mechanics.", score: 78, url: "https://github.com/getzep/graphiti" },
-  { name: "Microsoft GraphRAG", type: "System", primary: "Curation", scope: "corpus", verdict: "Good corpus structuring. Review should inspect update/delete lifecycle, provenance and cost of graph rebuilds.", score: 74, url: "https://github.com/microsoft/graphrag" },
-  { name: "LangGraph / LangMem", type: "Framework", primary: "Activation", scope: "agent", verdict: "Useful control plane for stateful workflows. Memory quality depends on surrounding curation and governance policy.", score: 66, url: "https://langchain-ai.github.io/langgraph/" },
-  { name: "LlamaIndex", type: "Data framework", primary: "Production", scope: "corpus", verdict: "Strong ingestion and indexing primitives. Needs review around chunk provenance, metadata, retrieval precision and lifecycle discipline.", score: 64, url: "https://www.llamaindex.ai/" },
-  { name: "OpenMemory MCP", type: "Tool", primary: "Governance", scope: "personal", verdict: "Helpful direction: memory exposed as a controllable tool surface rather than hidden model behavior.", score: 67, url: "https://github.com/mem0ai/mem0/tree/main/openmemory" },
-  { name: "MCP memory servers", type: "Protocol/tooling", primary: "Governance", scope: "tool", verdict: "Promising interface layer. Needs policies for who can write, what gets stored, and when memory is activated.", score: 68, url: "https://github.com/modelcontextprotocol/servers/tree/main/src/memory" },
-  { name: "Cline memory-bank", type: "Repo pattern", primary: "Storage", scope: "repo", verdict: "Useful project-scoped convention. Needs activation, freshness and promotion discipline to avoid stale project lore.", score: 62, url: "https://github.com/cline/memory-bank" },
-  { name: "Chroma", type: "Vector DB", primary: "Storage", scope: "app", verdict: "Useful embedding store. The surrounding architecture still needs source authority, curation and activation policy.", score: 58, url: "https://www.trychroma.com/" },
-];
-
-const toolLinks = Object.fromEntries(resources.map((r) => [r.name, r.url]));
 
 const layers: Layer[] = [
   {
@@ -166,7 +141,6 @@ export default function Home() {
           <a href="#activation">Activation</a>
           <a href="#failures">Failures</a>
           <a href="#map">Tools</a>
-          <a href="#research">Research</a>
         </div>
       </nav>
 
@@ -316,8 +290,9 @@ export default function Home() {
                 <span>{r.type}</span>
                 <b>{r.score}</b>
               </div>
-              <h3><a href={r.url} target="_blank" rel="noreferrer">{r.name}</a></h3>
+              <h3><a href={`/tools/${r.slug}`}>{r.name}</a></h3>
               <p>{r.verdict}</p>
+              <a className="reviewLink" href={`/tools/${r.slug}`}>Read review →</a>
               <div className="chips">
                 <span>{r.primary}</span>
                 <span>{r.scope}</span>
@@ -348,40 +323,6 @@ export default function Home() {
             </div>
           </div>
         </div>
-      </section>
-
-      <section id="research" className="section researchSection">
-        <div>
-          <p className="eyebrow">Ongoing research loop</p>
-          <h2>The map should stay alive.</h2>
-          <p>
-            Failure modes and scores should update as new evidence appears. The research pipeline watches public issues, forums, papers and changelogs, then only surfaces material changes: new clusters, changed rankings, crisp examples or reviews that need revision.
-          </p>
-        </div>
-        <div className="researchLoop">
-          <span>Scan</span>
-          <span>Cluster</span>
-          <span>Score</span>
-          <span>Review</span>
-          <span>Publish</span>
-          <span>Watch for drift</span>
-        </div>
-      </section>
-
-      <section id="submit" className="section submit">
-        <div>
-          <p className="eyebrow">Builder loop</p>
-          <h2>Submit a system. Get it mapped.</h2>
-          <p>
-            Builders can submit a URL. The pipeline canonicalizes it, collects evidence, drafts a model-bound review, suggests graph relationships and queues the result for editorial approval.
-          </p>
-        </div>
-        <form className="submitBox" onSubmit={(e) => e.preventDefault()}>
-          <label htmlFor="url">Tool or repo URL</label>
-          <input id="url" placeholder="https://github.com/example/memory-system" />
-          <button type="submit">Request review</button>
-          <small>Prototype form. Public submissions will be citation-bound and reviewed before publishing.</small>
-        </form>
       </section>
 
       <footer className="footer">
