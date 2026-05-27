@@ -232,17 +232,161 @@ h3 { font-size: 22px; letter-spacing: -0.025em; }
   color: var(--muted);
 }
 
+
+.ladderSection {
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  background: linear-gradient(180deg, rgba(255,250,240,0.38), rgba(232,221,198,0.28));
+}
+.levelSwitch {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: flex-end;
+}
+.levelSwitch button, .readingRail button, .miniLayerGrid button {
+  border: 1px solid var(--line);
+  background: rgba(255,255,255,0.42);
+  color: var(--ink);
+  cursor: pointer;
+}
+.levelSwitch button {
+  min-height: 46px;
+  padding: 8px 13px;
+  border-radius: 999px;
+  font-weight: 760;
+}
+.levelSwitch button span {
+  margin-right: 8px;
+  color: var(--accent);
+  font-size: 12px;
+  letter-spacing: 0.08em;
+}
+.levelSwitch button.active, .readingRail button.selected, .miniLayerGrid button.active {
+  background: var(--deep);
+  color: #fffaf0;
+  border-color: var(--deep);
+}
+.readingDeck {
+  display: grid;
+  grid-template-columns: 280px minmax(0, 1fr);
+  gap: 22px;
+  align-items: start;
+}
+.readingRail {
+  position: sticky;
+  top: 86px;
+  display: grid;
+  gap: 10px;
+}
+.readingRail button {
+  text-align: left;
+  border-radius: 20px;
+  padding: 16px;
+}
+.readingRail b, .readingRail span { display: block; }
+.readingRail span { margin-top: 6px; color: var(--muted); line-height: 1.35; }
+.readingRail button.selected span { color: rgba(255,250,240,0.68); }
+.readingPanel { display: grid; gap: 16px; }
+.disclosureBlock {
+  padding: clamp(20px, 3vw, 34px);
+  border: 1px solid var(--line);
+  border-radius: 28px;
+  background: rgba(255,250,240,0.78);
+  box-shadow: 0 16px 48px rgba(23, 19, 13, 0.07);
+}
+.disclosureBlock h3 { margin-bottom: 10px; font-size: clamp(26px, 3vw, 40px); }
+.disclosureBlock p { color: var(--muted); font-size: 18px; line-height: 1.52; }
+.levelOne p { color: var(--ink); font-size: clamp(24px, 3vw, 38px); line-height: 1.18; letter-spacing: -0.035em; }
+.levelBadge {
+  display: inline-flex;
+  margin-bottom: 14px;
+  padding: 7px 10px;
+  border-radius: 999px;
+  background: rgba(184,75,42,0.1);
+  color: var(--accent);
+  font-size: 12px;
+  font-weight: 820;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+.miniLayerGrid {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 8px;
+  margin: 20px 0;
+}
+.miniLayerGrid button {
+  min-height: 72px;
+  border-radius: 18px;
+  padding: 12px;
+  text-align: left;
+  font-weight: 800;
+}
+.miniLayerGrid button span { display: block; margin-bottom: 5px; color: var(--accent-2); font-size: 12px; }
+.miniLayerGrid button.active span { color: #d7b56d; }
+.layerExplainer {
+  padding: 20px;
+  border-radius: 20px;
+  background: rgba(49,95,85,0.08);
+}
+.layerExplainer b { color: var(--accent-2); }
+.layerExplainer p { margin: 8px 0 0; }
+.aspectGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+.aspectCard {
+  min-height: 190px;
+  padding: 18px;
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  background: rgba(255,255,255,0.36);
+}
+.aspectCard h4 { margin: 0 0 8px; font-size: 20px; letter-spacing: -0.025em; }
+.aspectCard p { margin-bottom: 14px; font-size: 16px; }
+.aspectCard small { color: var(--accent); line-height: 1.4; }
+.toolMatrix { display: grid; gap: 10px; }
+.toolRow {
+  display: grid;
+  grid-template-columns: minmax(220px, 0.85fr) minmax(0, 1.15fr);
+  gap: 16px;
+  padding: 16px;
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  background: rgba(255,255,255,0.34);
+}
+.toolRow b, .toolRow span { display: block; }
+.toolRow span { margin-top: 5px; color: var(--muted); line-height: 1.35; }
+.toolLinks { display: flex; flex-wrap: wrap; gap: 8px; align-items: start; }
+.toolLinks a, .resourceCard h3 a {
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 4px;
+}
+.toolLinks a {
+  padding: 9px 11px;
+  border-radius: 999px;
+  background: rgba(16,16,14,0.08);
+  color: var(--accent-2);
+  font-weight: 760;
+}
+.toolLinks a:hover, .resourceCard h3 a:hover { color: var(--accent); }
+
 @media (max-width: 1040px) {
-  .hero, .split, .reviewShell, .submit { grid-template-columns: 1fr; }
-  .layerGrid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .hero, .split, .reviewShell, .submit, .readingDeck, .toolRow { grid-template-columns: 1fr; }
+  .layerGrid, .aspectGrid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .resourceGrid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .miniLayerGrid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .readingRail { position: static; grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .sectionHeader.horizontal { display: block; }
-  .filters { justify-content: flex-start; margin-top: 18px; }
+  .filters, .levelSwitch { justify-content: flex-start; margin-top: 18px; }
 }
 @media (max-width: 640px) {
   .navLinks { display: none; }
   .section { padding-top: 58px; padding-bottom: 58px; }
-  .layerGrid, .resourceGrid { grid-template-columns: 1fr; }
+  .layerGrid, .resourceGrid, .aspectGrid, .miniLayerGrid, .readingRail { grid-template-columns: 1fr; }
   h1 { font-size: 54px; }
   .footer { flex-direction: column; }
 }
