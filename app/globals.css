@@ -41,11 +41,13 @@ button, input { font: inherit; }
 
 .section { padding: 84px clamp(20px, 5vw, 72px); }
 .hero {
-  min-height: 88vh;
+  min-height: calc(100vh - 72px);
   display: grid;
-  grid-template-columns: minmax(0, 1.08fr) minmax(340px, 0.92fr);
+  grid-template-columns: minmax(0, 1.08fr) minmax(320px, 0.92fr);
   align-items: center;
-  gap: clamp(28px, 5vw, 76px);
+  gap: clamp(24px, 4vw, 60px);
+  padding-top: 44px;
+  padding-bottom: 44px;
 }
 .eyebrow {
   margin: 0 0 18px;
@@ -60,8 +62,8 @@ h1 {
   max-width: 960px;
   margin-bottom: 28px;
   font-family: ui-serif, Georgia, Cambria, "Times New Roman", serif;
-  font-size: clamp(56px, 8vw, 112px);
-  line-height: 0.9;
+  font-size: clamp(48px, 6.4vw, 88px);
+  line-height: 0.94;
   letter-spacing: -0.075em;
 }
 h2 {
@@ -72,12 +74,12 @@ h2 {
 }
 h3 { font-size: 22px; letter-spacing: -0.025em; }
 .lede {
-  max-width: 780px;
+  max-width: 760px;
   color: var(--muted);
-  font-size: clamp(19px, 2vw, 25px);
-  line-height: 1.45;
+  font-size: clamp(18px, 1.7vw, 22px);
+  line-height: 1.42;
 }
-.heroActions { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 34px; }
+.heroActions { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 26px; }
 .button, .submitBox button {
   display: inline-flex;
   align-items: center;
@@ -103,7 +105,7 @@ h3 { font-size: 22px; letter-spacing: -0.025em; }
   padding: 10px;
 }
 .timeline span, .timeline strong {
-  padding: 18px;
+  padding: 14px 16px;
   border: 1px solid var(--line);
   border-radius: 18px;
   background: rgba(255,255,255,0.48);
@@ -113,13 +115,13 @@ h3 { font-size: 22px; letter-spacing: -0.025em; }
 }
 .timeline strong { background: var(--deep); color: #fffaf0; }
 .misframe {
-  margin-top: 24px;
-  padding: 24px;
+  margin-top: 18px;
+  padding: 20px;
   background: #181611;
   color: #fffaf0;
   border-radius: 22px;
   display: grid;
-  gap: 10px;
+  gap: 8px;
 }
 .label { color: #d7b56d; font-size: 12px; text-transform: uppercase; letter-spacing: 0.14em; }
 .arrow { color: #d7b56d; }
@@ -153,10 +155,21 @@ h3 { font-size: 22px; letter-spacing: -0.025em; }
   padding: 22px;
   box-shadow: 0 12px 36px rgba(23, 19, 13, 0.06);
 }
-.layerCard { min-height: 260px; }
+.layerCard { min-height: 300px; display: flex; flex-direction: column; }
 .layerCard .number { color: var(--accent); font-size: 13px; font-weight: 800; }
 .layerCard .short { color: var(--accent-2); font-weight: 780; }
 .layerCard p:last-child { color: var(--muted); line-height: 1.45; }
+.practicalExample {
+  margin-top: auto;
+  padding-top: 16px;
+  border-top: 1px solid var(--line);
+  display: grid;
+  gap: 6px;
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.35;
+}
+.practicalExample b { color: var(--accent-2); }
 .dimensions {
   margin-top: 18px;
   display: flex;
@@ -232,6 +245,103 @@ h3 { font-size: 22px; letter-spacing: -0.025em; }
   color: var(--muted);
 }
 
+
+.activationSection, .failureSection {
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  background: linear-gradient(180deg, rgba(255,250,240,0.38), rgba(232,221,198,0.28));
+}
+.activationDeck {
+  display: grid;
+  grid-template-columns: 0.82fr 1.18fr;
+  gap: 18px;
+  align-items: start;
+}
+.activationSection .sectionHeader.horizontal {
+  display: block;
+}
+.activationSection .sectionHeader.horizontal .compactControls {
+  margin-top: 22px;
+}
+.compactControls {
+  max-width: none;
+  width: 100%;
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+}
+.compactControls button {
+  min-height: 58px;
+  min-width: 132px;
+  flex: 0 1 156px;
+}
+.sectionLead {
+  max-width: 780px;
+  color: var(--muted);
+  font-size: 20px;
+  line-height: 1.5;
+}
+.failureGrid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 14px;
+}
+.failureCard {
+  min-height: 330px;
+  padding: 22px;
+  border: 1px solid var(--line);
+  border-radius: 24px;
+  background: rgba(255,250,240,0.78);
+  box-shadow: 0 12px 36px rgba(23, 19, 13, 0.06);
+}
+.failureTop {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  color: var(--muted);
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+.failureTop span { color: var(--accent); font-weight: 820; }
+.failureCard p { color: var(--muted); line-height: 1.45; }
+.failureCard blockquote {
+  margin: 18px 0 0;
+  padding: 16px;
+  border-left: 3px solid var(--accent);
+  border-radius: 14px;
+  background: rgba(184,75,42,0.08);
+  font-family: ui-serif, Georgia, Cambria, "Times New Roman", serif;
+  font-size: 20px;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+}
+.researchSection {
+  display: grid;
+  grid-template-columns: 0.9fr 1.1fr;
+  gap: 32px;
+  align-items: center;
+  border-top: 1px solid var(--line);
+}
+.researchSection p { color: var(--muted); font-size: 20px; line-height: 1.5; }
+.researchLoop {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+.researchLoop span {
+  min-height: 96px;
+  display: grid;
+  place-items: center;
+  text-align: center;
+  padding: 18px;
+  border: 1px solid var(--line);
+  border-radius: 22px;
+  background: rgba(255,250,240,0.76);
+  color: var(--accent-2);
+  font-weight: 820;
+}
 
 .ladderSection {
   border-top: 1px solid var(--line);
@@ -375,8 +485,8 @@ h3 { font-size: 22px; letter-spacing: -0.025em; }
 .toolLinks a:hover, .resourceCard h3 a:hover { color: var(--accent); }
 
 @media (max-width: 1040px) {
-  .hero, .split, .reviewShell, .submit, .readingDeck, .toolRow { grid-template-columns: 1fr; }
-  .layerGrid, .aspectGrid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .hero, .split, .reviewShell, .submit, .readingDeck, .toolRow, .activationDeck, .researchSection { grid-template-columns: 1fr; }
+  .layerGrid, .aspectGrid, .failureGrid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .resourceGrid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .miniLayerGrid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
   .readingRail { position: static; grid-template-columns: repeat(2, minmax(0, 1fr)); }
@@ -386,7 +496,7 @@ h3 { font-size: 22px; letter-spacing: -0.025em; }
 @media (max-width: 640px) {
   .navLinks { display: none; }
   .section { padding-top: 58px; padding-bottom: 58px; }
-  .layerGrid, .resourceGrid, .aspectGrid, .miniLayerGrid, .readingRail { grid-template-columns: 1fr; }
+  .layerGrid, .resourceGrid, .aspectGrid, .miniLayerGrid, .readingRail, .failureGrid, .researchLoop { grid-template-columns: 1fr; }
   h1 { font-size: 54px; }
   .footer { flex-direction: column; }
 }
