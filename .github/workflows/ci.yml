@@ -17,3 +17,44 @@ jobs:
       - run: npm ci
       - run: npm run lint
       - run: npm run build
+
+  deploy-production:
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    needs: build
+    runs-on: ubuntu-latest
+    env:
+      VERCEL_ORG_ID: team_XjMzzL3C47bSAxTGGbpN8yYl
+      VERCEL_PROJECT_ID: prj_1zLXhyThg9LJIQ6GfIqPMsd544sa
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      - name: Check Vercel token
+        id: vercel-token
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+        run: |
+          if [ -z "$VERCEL_TOKEN" ]; then
+            echo "available=false" >> "$GITHUB_OUTPUT"
+            echo "VERCEL_TOKEN repo secret is not set; skipping deployment."
+          else
+            echo "available=true" >> "$GITHUB_OUTPUT"
+          fi
+      - name: Pull Vercel environment
+        if: steps.vercel-token.outputs.available == 'true'
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+        run: npx vercel pull --yes --environment=production --token="$VERCEL_TOKEN"
+      - name: Build Vercel output
+        if: steps.vercel-token.outputs.available == 'true'
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+        run: npx vercel build --prod --token="$VERCEL_TOKEN"
+      - name: Deploy to Vercel production
+        if: steps.vercel-token.outputs.available == 'true'
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+        run: npx vercel deploy --prebuilt --prod --token="$VERCEL_TOKEN"
