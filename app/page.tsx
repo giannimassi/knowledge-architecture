@@ -130,6 +130,7 @@ export default function Home() {
   const [filter, setFilter] = useState("All");
   const [activeLayer, setActiveLayer] = useState<LayerName>("Activation");
   const filtered = useMemo(() => resources.filter((r) => filter === "All" || r.primary === filter), [filter]);
+  const matrixResources = filtered.slice(0, 6);
   const selectedLayer = layers.find((layer) => layer.name === activeLayer) ?? layers[3];
 
   return (
@@ -140,6 +141,7 @@ export default function Home() {
           <a href="#model">Model</a>
           <a href="#failures">Failures</a>
           <a href="#map">Tools</a>
+          <a href="/methodology">Methodology</a>
         </div>
       </nav>
 
@@ -267,6 +269,30 @@ export default function Home() {
             ))}
           </div>
         </div>
+        <div className="matrixBlock">
+          <div className="matrixIntro">
+            <h3>Layer coverage matrix</h3>
+            <p>Rows are the knowledge-stack layers. Columns are selected tools. Cells are provisional coverage scores until each review has a full evidence packet.</p>
+          </div>
+          <div className="coverageMatrix" role="table" aria-label="Tool coverage by knowledge layer">
+            <div className="matrixRow matrixHead" role="row">
+              <span role="columnheader">Layer</span>
+              {matrixResources.map((resource) => <span role="columnheader" key={resource.slug}>{resource.name}</span>)}
+            </div>
+            {layers.map((layer) => (
+              <div className="matrixRow" role="row" key={layer.name}>
+                <b role="rowheader">{layer.name}</b>
+                {matrixResources.map((resource) => (
+                  <a role="cell" href={`/tools/${resource.slug}`} key={resource.slug}>
+                    <i style={{ width: `${resource.layerScores[layer.name] ?? 0}%` }} />
+                    <span>{resource.layerScores[layer.name] ?? 0}</span>
+                  </a>
+                ))}
+              </div>
+            ))}
+          </div>
+        </div>
+
         <div className="resourceGrid">
           {filtered.map((r) => (
             <article className="resourceCard" key={r.name}>
@@ -292,7 +318,7 @@ export default function Home() {
             <p className="eyebrow">Exemplar review</p>
             <h2>Reviews should expose fit, not declare a universal winner.</h2>
             <p>
-              Each tool page should bind claims to evidence, map layer coverage, score layer behavior where justified, show caveats and name failure modes. Papers and benchmarks support the review; they are not the first-class map item.
+Each tool page should bind claims to evidence, map layer coverage, score layer behavior where justified, show caveats, name failure modes, and keep benchmark numbers separate from architectural evidence. Papers and benchmarks support the review; they are not the first-class map item.
             </p>
           </div>
           <div className="scorecard">
@@ -306,6 +332,10 @@ export default function Home() {
               Benchmark note: reported recall numbers are not proof of governance, lifecycle, authority or domain-policy handling.
             </div>
           </div>
+        </div>
+        <div className="methodologyCta">
+          <span>Missing the review workflow?</span>
+          <a className="button secondary" href="/methodology">See the review loop</a>
         </div>
       </section>
 
