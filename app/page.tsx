@@ -138,7 +138,6 @@ export default function Home() {
         <a className="brand" href="#top">Knowledge Architecture</a>
         <div className="navLinks">
           <a href="#model">Model</a>
-          <a href="#activation">Activation</a>
           <a href="#failures">Failures</a>
           <a href="#map">Tools</a>
         </div>
@@ -190,61 +189,46 @@ export default function Home() {
         </div>
       </section>
 
-      <section id="model" className="section model">
+      <section id="model" className="section model stackSection">
         <div className="sectionHeader">
-          <p className="eyebrow">The model</p>
-          <h2>Five layers of agent knowledge.</h2>
+          <p className="eyebrow">The knowledge stack</p>
+          <h2>Five jobs every agent knowledge system must do.</h2>
+          <p className="sectionLead">
+            Not five separate taxonomies. One operating model: pick a layer, see what it is responsible for, what can go wrong, and what a review should test.
+          </p>
         </div>
-        <div className="layerGrid">
-          {layers.map((layer, i) => (
-            <article className="layerCard" key={layer.name}>
-              <span className="number">0{i + 1}</span>
-              <h3>{layer.name}</h3>
-              <p className="short">{layer.short}</p>
-              <p>{layer.text}</p>
-              <div className="practicalExample">
-                <b>Example</b>
-                <span>{layer.example}</span>
-              </div>
-            </article>
-          ))}
+        <div className="stackExplorer">
+          <div className="stackRail" aria-label="Choose layer">
+            {layers.map((layer, i) => (
+              <button key={layer.name} className={activeLayer === layer.name ? "active" : ""} onClick={() => setActiveLayer(layer.name)}>
+                <span className="number">0{i + 1}</span>
+                <b>{layer.name}</b>
+                <small>{layer.short}</small>
+                <em>{layer.text}</em>
+              </button>
+            ))}
+          </div>
+          <article className="stackDetail">
+            <span className="levelBadge">{selectedLayer.short}: {selectedLayer.name}</span>
+            <h3>{selectedLayer.principle}</h3>
+            <div className="practicalExample featuredExample">
+              <b>Example question</b>
+              <span>{selectedLayer.example}</span>
+            </div>
+            <div className="checksGrid">
+              {selectedLayer.aspects.map((aspect) => (
+                <div className="aspectCard" key={aspect.name}>
+                  <h4>{aspect.name}</h4>
+                  <p>{aspect.role}</p>
+                  <small>Failure mode: {aspect.failure}</small>
+                </div>
+              ))}
+            </div>
+          </article>
         </div>
         <div className="dimensions">
           <span>Every review also scores:</span>
           {dimensions.map((d) => <b key={d}>{d}</b>)}
-        </div>
-      </section>
-
-      <section id="activation" className="section activationSection">
-        <div className="sectionHeader horizontal">
-          <div>
-            <p className="eyebrow">Activation aspects</p>
-            <h2>The layer model becomes useful at decision time.</h2>
-          </div>
-          <div className="miniLayerGrid compactControls" aria-label="Choose layer">
-            {layers.map((layer) => (
-              <button key={layer.name} className={activeLayer === layer.name ? "active" : ""} onClick={() => setActiveLayer(layer.name)}>
-                <span>{layer.short}</span>
-                {layer.name}
-              </button>
-            ))}
-          </div>
-        </div>
-        <div className="activationDeck">
-          <article className="disclosureBlock levelOne">
-            <span className="levelBadge">{selectedLayer.name}</span>
-            <h3>{selectedLayer.short}: {selectedLayer.name}</h3>
-            <p>{selectedLayer.principle}</p>
-          </article>
-          <div className="aspectGrid">
-            {selectedLayer.aspects.map((aspect) => (
-              <div className="aspectCard" key={aspect.name}>
-                <h4>{aspect.name}</h4>
-                <p>{aspect.role}</p>
-                <small>Failure mode: {aspect.failure}</small>
-              </div>
-            ))}
-          </div>
         </div>
       </section>
 
@@ -308,7 +292,7 @@ export default function Home() {
             <p className="eyebrow">Exemplar review</p>
             <h2>Reviews should expose fit, not declare a universal winner.</h2>
             <p>
-              Each tool page should bind claims to evidence, map layer coverage, score activation aspects where justified, show caveats and name failure modes. Papers and benchmarks support the review; they are not the first-class map item.
+              Each tool page should bind claims to evidence, map layer coverage, score layer behavior where justified, show caveats and name failure modes. Papers and benchmarks support the review; they are not the first-class map item.
             </p>
           </div>
           <div className="scorecard">

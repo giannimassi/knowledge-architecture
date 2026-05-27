@@ -519,3 +519,67 @@ h3 { font-size: 22px; letter-spacing: -0.025em; }
 .evidenceList .failureCard { min-height: 180px; }
 .evidenceList .failureCard p { font-size: 18px; }
 @media (max-width: 1040px) { .evidenceList { grid-template-columns: 1fr; } }
+
+.stackSection { border-top: 1px solid var(--line); }
+.stackExplorer {
+  display: grid;
+  grid-template-columns: minmax(280px, 0.9fr) minmax(0, 1.35fr);
+  gap: 18px;
+  align-items: start;
+}
+.stackRail { display: grid; gap: 10px; }
+.stackRail button {
+  text-align: left;
+  padding: 18px;
+  border: 1px solid var(--line);
+  border-radius: 22px;
+  background: rgba(255,250,240,0.72);
+  color: var(--ink);
+  cursor: pointer;
+  box-shadow: 0 10px 28px rgba(23, 19, 13, 0.04);
+}
+.stackRail button.active {
+  background: var(--deep);
+  color: #fffaf0;
+  border-color: var(--deep);
+}
+.stackRail .number {
+  display: block;
+  color: var(--accent);
+  font-size: 12px;
+  font-weight: 820;
+  margin-bottom: 8px;
+}
+.stackRail button.active .number { color: #d7b56d; }
+.stackRail b, .stackRail small, .stackRail em { display: block; }
+.stackRail small {
+  margin: 3px 0 8px;
+  color: var(--accent-2);
+  font-weight: 820;
+}
+.stackRail button.active small { color: #d7b56d; }
+.stackRail em {
+  color: var(--muted);
+  font-style: normal;
+  line-height: 1.4;
+}
+.stackRail button.active em { color: rgba(255,250,240,0.68); }
+.stackDetail {
+  padding: clamp(22px, 3vw, 38px);
+  border: 1px solid var(--line);
+  border-radius: 30px;
+  background: rgba(255,250,240,0.82);
+  box-shadow: var(--shadow);
+}
+.stackDetail h3 {
+  max-width: 920px;
+  margin-bottom: 18px;
+  font-family: ui-serif, Georgia, Cambria, "Times New Roman", serif;
+  font-size: clamp(30px, 3.6vw, 54px);
+  line-height: 1.02;
+  letter-spacing: -0.055em;
+}
+.featuredExample { margin: 0 0 18px; padding: 18px; background: rgba(49,95,85,0.08); border-radius: 20px; }
+.checksGrid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+@media (max-width: 1040px) { .stackExplorer { grid-template-columns: 1fr; } }
+@media (max-width: 640px) { .checksGrid { grid-template-columns: 1fr; } }
