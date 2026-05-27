@@ -34,7 +34,7 @@ export default async function ToolReviewPage({ params }: { params: Promise<{ slu
       </nav>
 
       <section className="section toolHero">
-        <p className="eyebrow">Tool review · {resource.reviewStatus}</p>
+        <p className="eyebrow">Tool profile · {resource.reviewStatus}</p>
         <h1>{resource.name}</h1>
         <p className="lede">{resource.verdict}</p>
         <div className="heroActions">
@@ -45,7 +45,7 @@ export default async function ToolReviewPage({ params }: { params: Promise<{ slu
 
       <section className="section split toolSummary">
         <div>
-          <p className="eyebrow">Verdict</p>
+          <p className="eyebrow">Provisional fit</p>
           <h2>{resource.score}/100</h2>
         </div>
         <div className="copyBlock">
@@ -62,7 +62,7 @@ export default async function ToolReviewPage({ params }: { params: Promise<{ slu
             <p className="eyebrow">Layer coverage</p>
             <h2>Where this tool fits.</h2>
             <p>
-              This is a v0 review from the first evidence pass. It maps public positioning against observed failure modes. It is not a final score: hands-on benchmarks, source snapshots, and citation-bound claims are still required before stronger conclusions.
+              This is not a completed review. It is a provisional profile from public positioning plus known failure-mode mapping. Hands-on benchmarks, source snapshots, and citation-bound claims are still required before stronger conclusions.
             </p>
           </div>
           <div className="scorecard">
@@ -82,7 +82,7 @@ export default async function ToolReviewPage({ params }: { params: Promise<{ slu
       <section className="section failureSection">
         <div className="sectionHeader">
           <p className="eyebrow">Evidence notes</p>
-          <h2>What the research loop has applied so far.</h2>
+          <h2>What the provisional profile has applied so far.</h2>
         </div>
         <div className="failureGrid evidenceList">
           {resource.evidence.map((item) => (
@@ -97,7 +97,7 @@ export default async function ToolReviewPage({ params }: { params: Promise<{ slu
         <div className="sectionHeader">
           <p className="eyebrow">Review packet</p>
           <h2>What a complete review must contain.</h2>
-          <p className="sectionLead">This page now exposes the intended review structure, even where the current artifact is still v0.</p>
+          <p className="sectionLead">This page exposes the intended review structure. The current artifact is a profile, not a completed evidence-backed review.</p>
         </div>
         <div className="packetGrid">
           <article className="packetCard">
@@ -134,7 +134,7 @@ export default async function ToolReviewPage({ params }: { params: Promise<{ slu
           </article>
           <article className="packetCard">
             <h3>Update history</h3>
-            <p>v0 evidence pass. Stale-review detection and changelog watching are planned before reviews are treated as durable rankings.</p>
+            <p>Provisional profile created. Stale-review detection, source snapshots, and changelog watching are required before this becomes a durable review.</p>
           </article>
         </div>
       </section>

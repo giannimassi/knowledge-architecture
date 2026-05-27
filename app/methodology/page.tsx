@@ -5,7 +5,7 @@ const workflow = [
   "Canonicalize identity and dedupe aliases, forks, papers, launch posts, and product pages.",
   "Snapshot evidence with source URL, fetched date, content hash, trust level, and quote/span where public.",
   "Extract claims, features, benchmark numbers, relationships, caveats, and failure reports.",
-  "Classify against the knowledge stack: Production, Curation, Storage, Activation, Governance.",
+  "Classify against the knowledge stack: Production, Curation, Storage, Context Assembly, Governance.",
   "Draft the review with citations, confidence, model signature, strengths, limitations, best-for, avoid-if, and open questions.",
   "Human approves final scores, rankings, superiority claims, public criticism, and publication.",
   "Publish page, matrix cells, graph edges, changelog, and stale-review watch state."
@@ -56,7 +56,7 @@ export default function MethodologyPage() {
         <p className="eyebrow">Review methodology</p>
         <h1>The review loop is the product.</h1>
         <p className="lede">
-          The site should not become a link directory. Every public review needs evidence, model mapping, explicit confidence, benchmark critique, and an update path.
+          The site should not become a link directory. Every completed public review needs evidence, model mapping, explicit confidence, benchmark critique, and an update path. Current tool pages are provisional profiles until this loop has run.
         </p>
       </section>
 

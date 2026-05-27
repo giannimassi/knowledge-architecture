@@ -65,10 +65,10 @@ const layers: Layer[] = [
     ],
   },
   {
-    name: "Activation",
+    name: "Context Assembly",
     short: "Use",
     text: "Route the right knowledge into the right context at the right time, within budget and policy.",
-    principle: "Knowledge only matters when activated into a task. The hard question is not whether something exists, but whether it should enter this prompt, tool call, job or human message now.",
+    principle: "Knowledge only matters when assembled into task context. The hard question is not whether something exists, but whether it should enter this prompt, tool call, job, or human message now.",
     example: "Why didn't the agent notice my calendar changed before planning the day?",
     aspects: [
       { name: "Context routing", role: "Select knowledge by task, thread, project, person, account and risk level.", failure: "The agent either misses context or leaks unrelated context into every task.", tools: ["Letta / MemGPT", "LangGraph / LangMem", "MCP memory servers"] },
@@ -86,7 +86,7 @@ const layers: Layer[] = [
     aspects: [
       { name: "Authority", role: "Specify who or what is allowed to create, revise, promote or override knowledge.", failure: "Any agent inference can overwrite a durable user preference.", tools: ["MCP memory servers", "OpenMemory MCP", "Letta / MemGPT"] },
       { name: "Privacy boundaries", role: "Prevent personal, work, client and public contexts from bleeding into each other.", failure: "A helpful retrieval becomes an account or confidentiality breach.", tools: ["OpenMemory MCP", "MCP memory servers", "Mem0"] },
-      { name: "Auditability", role: "Show what was used, where it came from and why it was activated.", failure: "The agent cannot explain its context trail.", tools: ["Zep / Graphiti", "LangGraph / LangMem", "Microsoft GraphRAG"] },
+      { name: "Auditability", role: "Show what was used, where it came from and why it was assembled.", failure: "The agent cannot explain its context trail.", tools: ["Zep / Graphiti", "LangGraph / LangMem", "Microsoft GraphRAG"] },
       { name: "Lifecycle", role: "Expire, deprecate, refresh, archive or delete knowledge deliberately.", failure: "Memory accumulates until it becomes epistemic debt.", tools: ["Mem0", "Zep / Graphiti", "Cline memory-bank"] },
     ],
   },
@@ -108,7 +108,7 @@ const failureModes: FailureMode[] = [
     pain: "Pain signal: very high",
     text: "The right knowledge exists, but recall returns zero results, wrong chunks, equal scores, or missing metadata.",
     example: "846 stored messages, but conversation search returns nothing.",
-    layer: "Activation",
+    layer: "Context Assembly",
   },
   {
     title: "Junk memory accumulation",
@@ -128,7 +128,7 @@ const failureModes: FailureMode[] = [
 
 export default function Home() {
   const [filter, setFilter] = useState("All");
-  const [activeLayer, setActiveLayer] = useState<LayerName>("Activation");
+  const [activeLayer, setActiveLayer] = useState<LayerName>("Context Assembly");
   const filtered = useMemo(() => resources.filter((r) => filter === "All" || r.primary === filter), [filter]);
   const matrixResources = filtered.slice(0, 6);
   const selectedLayer = layers.find((layer) => layer.name === activeLayer) ?? layers[3];
@@ -150,7 +150,7 @@ export default function Home() {
           <p className="eyebrow">A public map for agent knowledge systems</p>
           <h1>Your agent doesn&apos;t need memory. It needs a knowledge architecture.</h1>
           <p className="lede">
-            The AI memory conversation is asking the wrong question. The issue is not whether agents can store more. It is whether they can produce, curate, store, activate and govern knowledge well enough to use it safely.
+            The AI memory conversation is asking the wrong question. The issue is not whether agents can store more. It is whether they can produce, curate, store, assemble and govern knowledge well enough to use it safely.
           </p>
           <div className="heroActions">
             <a className="button primary" href="#model">See the model</a>
@@ -183,7 +183,7 @@ export default function Home() {
         </div>
         <div className="copyBlock">
           <p>
-            A system can store everything and still fail to know what is true, current, private, authoritative, useful, cheap enough to retrieve, or safe to activate.
+            A system can store everything and still fail to know what is true, current, private, authoritative, useful, cheap enough to retrieve, or safe to assemble into context.
           </p>
           <p>
             This site reviews tools by the knowledge job they actually perform, not by the word “memory” in a launch post.
@@ -260,8 +260,8 @@ export default function Home() {
       <section id="map" className="section mapSection">
         <div className="sectionHeader horizontal">
           <div>
-            <p className="eyebrow">Tool review surface</p>
-            <h2>A living map of memory tools and agent knowledge systems.</h2>
+            <p className="eyebrow">Tool review queue</p>
+            <h2>A provisional queue of memory tools and agent knowledge systems.</h2>
           </div>
           <div className="filters" aria-label="Filter resources">
             {filterOptions.map((option) => (
@@ -272,7 +272,7 @@ export default function Home() {
         <div className="matrixBlock">
           <div className="matrixIntro">
             <h3>Layer coverage matrix</h3>
-            <p>Rows are the knowledge-stack layers. Columns are selected tools. Cells are provisional coverage scores until each review has a full evidence packet.</p>
+            <p>Rows are the knowledge-stack layers. Columns are selected tools. Cells are provisional hypotheses, not completed reviews, until each tool has a full evidence packet.</p>
           </div>
           <div className="coverageMatrix" role="table" aria-label="Tool coverage by knowledge layer">
             <div className="matrixRow matrixHead" role="row">
@@ -302,7 +302,7 @@ export default function Home() {
               </div>
               <h3><a href={`/tools/${r.slug}`}>{r.name}</a></h3>
               <p>{r.verdict}</p>
-              <a className="reviewLink" href={`/tools/${r.slug}`}>Read review →</a>
+              <a className="reviewLink" href={`/tools/${r.slug}`}>Open provisional profile →</a>
               <div className="chips">
                 <span>{r.primary}</span>
                 <span>{r.scope}</span>
@@ -315,8 +315,8 @@ export default function Home() {
       <section id="review" className="section review">
         <div className="reviewShell">
           <div>
-            <p className="eyebrow">Exemplar review</p>
-            <h2>Reviews should expose fit, not declare a universal winner.</h2>
+            <p className="eyebrow">Review target</p>
+            <h2>Completed reviews should expose fit, not declare a universal winner.</h2>
             <p>
 Each tool page should bind claims to evidence, map layer coverage, score layer behavior where justified, show caveats, name failure modes, and keep benchmark numbers separate from architectural evidence. Papers and benchmarks support the review; they are not the first-class map item.
             </p>
@@ -341,7 +341,7 @@ Each tool page should bind claims to evidence, map layer coverage, score layer b
 
       <footer className="footer">
         <span>Knowledge Architecture</span>
-        <span>Production · Curation · Storage · Activation · Governance</span>
+        <span>Production · Curation · Storage · Context Assembly · Governance</span>
       </footer>
     </main>
   );
